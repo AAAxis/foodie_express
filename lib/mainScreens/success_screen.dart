@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:order_app/widgets/navigation_bar.dart';
+import 'package:orderapp/widgets/navigation_bar.dart';
 
 class SuccessPage extends StatelessWidget {
   @override

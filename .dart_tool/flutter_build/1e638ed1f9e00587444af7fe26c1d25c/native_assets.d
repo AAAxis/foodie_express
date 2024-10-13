@@ -1,0 +1,1 @@
+ /Users/admin/Documents/GitHub/foodie_express/.dart_tool/flutter_build/1e638ed1f9e00587444af7fe26c1d25c/native_assets.yaml: 

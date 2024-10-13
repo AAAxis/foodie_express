@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:order_app/widgets/navigation_bar.dart';
+import 'package:orderapp/widgets/navigation_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'settings_screen.dart'; // Import your settings screen file
 import 'package:http/http.dart' as http;
@@ -353,23 +352,29 @@ class _CartPageState extends State<CartPage> {
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
+
+                        ),
+
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16.0), // Adjust the value as needed
+                        child: ElevatedButton(
+                          onPressed: _submitOrder,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.zero,
+                            ),
+                          ),
+                          child: Text('Payment', style: TextStyle(color: Colors.white)),
                         ),
                       ),
+
                     ],
                   );
                 }
               },
             ),
-          ),
-          ElevatedButton(
-            onPressed: _submitOrder,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.black,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.zero,
-              ),
-            ),
-            child: Text('Payment', style: TextStyle(color: Colors.white)),
           ),
 
 

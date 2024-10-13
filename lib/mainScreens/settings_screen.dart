@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:order_app/authentication/auth_screen.dart';
-import 'package:order_app/global/global.dart';
+import 'package:orderapp/authentication/auth_screen.dart';
+import 'package:orderapp/global/global.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:order_app/widgets/navigation_bar.dart';
+import 'package:orderapp/widgets/navigation_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MySettings extends StatefulWidget {
@@ -35,9 +35,7 @@ class _MySettingsState extends State<MySettings> {
   }
 
   bool isPhoneNumberValid(String? value) {
-    if (value == null) return false;
-    final RegExp regex = RegExp(r'^\+\d{11}$');
-    return regex.hasMatch(value);
+    return value != null;
   }
 
   void updateName(String newName) {

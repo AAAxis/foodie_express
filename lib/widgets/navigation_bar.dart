@@ -1,10 +1,8 @@
-import 'package:order_app/authentication/auth_screen.dart';
+import 'package:orderapp/authentication/auth_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:order_app/mainScreens/account.dart';
-import 'package:order_app/mainScreens/chat_screen.dart';
-import 'package:order_app/mainScreens/home_screen.dart';
-import 'package:order_app/mainScreens/map_screen.dart';
-import 'package:order_app/mainScreens/settings_screen.dart';
+import 'package:orderapp/mainScreens/account.dart';
+import 'package:orderapp/mainScreens/chat_screen.dart';
+import 'package:orderapp/mainScreens/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class NavigationPage extends StatefulWidget {

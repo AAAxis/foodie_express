@@ -1,11 +1,11 @@
 
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:order_app/authentication/email_login.dart';
+import 'package:orderapp/authentication/email_login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:order_app/widgets/navigation_bar.dart';
+import 'package:orderapp/widgets/navigation_bar.dart';
 import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 import '../global/global.dart';
 import '../widgets/error_dialog.dart';

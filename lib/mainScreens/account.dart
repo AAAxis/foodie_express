@@ -1,11 +1,11 @@
 
 import 'package:flutter/material.dart';
-import 'package:order_app/authentication/auth_screen.dart';
+import 'package:orderapp/authentication/auth_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:order_app/mainScreens/chat_screen.dart';
-import 'package:order_app/mainScreens/notification.dart';
-import 'package:order_app/mainScreens/settings_screen.dart';
-import 'package:order_app/widgets/qr_code.dart';
+import 'package:orderapp/mainScreens/chat_screen.dart';
+import 'package:orderapp/mainScreens/notification.dart';
+import 'package:orderapp/mainScreens/settings_screen.dart';
+import 'package:orderapp/widgets/qr_code.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountPage extends StatefulWidget {

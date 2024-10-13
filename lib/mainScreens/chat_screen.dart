@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:order_app/widgets/navigation_bar.dart';
-
+import 'package:orderapp/widgets/navigation_bar.dart';
 import '../global/global.dart';
 import 'chat_room.dart';
 

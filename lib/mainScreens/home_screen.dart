@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:order_app/global/global.dart';
-import 'package:order_app/splashScreen/splash_screen.dart';
+import 'package:orderapp/global/global.dart';
+import 'package:orderapp/splashScreen/splash_screen.dart';
 import 'menu_page.dart';
 
 class HomeScreen extends StatefulWidget {

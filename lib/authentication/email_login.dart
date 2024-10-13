@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:order_app/widgets/navigation_bar.dart';
+import 'package:orderapp/widgets/navigation_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../global/global.dart';
@@ -19,11 +19,10 @@ class EmailLoginScreen extends StatefulWidget {
 
 class _EmailLoginScreenState extends State<EmailLoginScreen> {
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController codeController = TextEditingController();
+  final List<TextEditingController> codeControllers = List.generate(6, (index) => TextEditingController());
 
   bool _isEmailSent = false;
   String? verificationCode;
-
 
   Future<void> sendEmail() async {
     final email = emailController.text.trim();
@@ -33,14 +32,14 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Invalid Email'),
-            content: Text('Please enter a valid email address.'),
+            title: const Text('Invalid Email'),
+            content: const Text('Please enter a valid email address.'),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           );
@@ -67,14 +66,14 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: Text('Failed to Send Email'),
-              content: Text('Unable to send email. Please try again later.'),
+              title: const Text('Failed to Send Email'),
+              content: const Text('Unable to send email. Please try again later.'),
               actions: [
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text('OK'),
+                  child: const Text('OK'),
                 ),
               ],
             );
@@ -86,14 +85,14 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Error'),
+            title: const Text('Error'),
             content: Text('An error occurred while sending the email: $e'),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           );
@@ -107,14 +106,13 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
     return emailRegex.hasMatch(email);
   }
 
-
   void verify() async {
-    final enteredCode = codeController.text;
+    final enteredCode = codeControllers.map((controller) => controller.text).join('');
     bool trackingPermissionStatus = sharedPreferences!.getBool("tracking") ?? false;
 
     if (enteredCode == verificationCode) {
       final email = emailController.text.trim();
-      final password = "passwordless";
+      const password = "passwordless";
 
       try {
         UserCredential userCredential;
@@ -144,8 +142,7 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
               "email": userEmail,
               "address": "Add Location",
               "status": "approved",
-
-                   "trackingPermission": trackingPermissionStatus,
+              "trackingPermission": trackingPermissionStatus,
             });
 
             final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -154,16 +151,15 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
               context: context,
               builder: (context) {
                 return AlertDialog(
-                  title: Text('Verification Successful'),
-                  content: Text('You have successfully verified your email.'),
+                  title: const Text('Verification Successful'),
+                  content: const Text('You have successfully verified your email.'),
                   actions: [
                     TextButton(
                       onPressed: () {
                         Navigator.pop(context);
-                        // Add your logic to navigate to the next screen or perform other actions
                         readDataAndSetDataLocally(userCredential.user!);
                       },
-                      child: Text('OK'),
+                      child: const Text('OK'),
                     ),
                   ],
                 );
@@ -171,35 +167,29 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
             );
           }
 
-
         } catch (e) {
           if (e is FirebaseAuthException) {
             if (e.code == 'email-already-in-use') {
-              // Try to sign in the user with the existing credentials
               try {
                 userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
                   email: email,
                   password: password,
                 );
 
-                // Handle a successful sign-in
                 if (userCredential.user != null) {
-
-                  // Continue with your app logic for the authenticated user.
                   showDialog(
                     context: context,
                     builder: (context) {
                       return AlertDialog(
-                        title: Text('Verification Successful'),
-                        content: Text('You have successfully verified your email.'),
+                        title: const Text('Verification Successful'),
+                        content: const Text('You have successfully verified your email.'),
                         actions: [
                           TextButton(
                             onPressed: () {
                               Navigator.pop(context);
-                              // Add your logic to navigate to the next screen or perform other actions
                               readDataAndSetDataLocally(userCredential.user!);
                             },
-                            child: Text('OK'),
+                            child: const Text('OK'),
                           ),
                         ],
                       );
@@ -207,33 +197,29 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
                   );
                 }
               } catch (e) {
-                // Handle the sign-in error here
                 print('Failed to sign in the user: $e');
               }
             } else {
-              // Handle other Firebase Authentication errors
               print('Failed to create a user account: $e');
             }
           }
         }
       } catch (e) {
-        // Handle errors for Firebase Authentication
         print('Error: $e');
       }
     } else {
-      // Verification failed, show an error dialog
       showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Verification Failed'),
-            content: Text('Invalid verification code. Please try again.'),
+            title: const Text('Verification Failed'),
+            content: const Text('Invalid verification code. Please try again.'),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           );
@@ -242,7 +228,6 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
     }
   }
 
-
   Future readDataAndSetDataLocally(User currentUser) async {
     await FirebaseFirestore.instance
         .collection("users")
@@ -250,20 +235,16 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
         .get()
         .then((snapshot) async {
       if (snapshot.exists) {
-          await sharedPreferences!.setString("uid", currentUser.uid);
-          await sharedPreferences!.setString(
-              "email", snapshot.data()!["email"]);
-          await sharedPreferences!.setString("name", snapshot.data()!["name"]);
-          await sharedPreferences!.setString(
-              "address", snapshot.data()!["address"]);
-          await sharedPreferences!.setString(
-              "phone", snapshot.data()!["phone"]);
+        await sharedPreferences!.setString("uid", currentUser.uid);
+        await sharedPreferences!.setString("email", snapshot.data()!["email"]);
+        await sharedPreferences!.setString("name", snapshot.data()!["name"]);
+        await sharedPreferences!.setString("address", snapshot.data()!["address"]);
+        await sharedPreferences!.setString("phone", snapshot.data()!["phone"]);
 
-
-          Navigator.pop(context);
-          Navigator.push(
-              context, MaterialPageRoute(builder: (c) => NavigationPage()));
-        } else {
+        Navigator.pop(context);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (c) => NavigationPage()));
+      } else {
         _auth.signOut();
         Navigator.pop(context);
         Navigator.push(context,
@@ -281,18 +262,17 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffffffff),
+      backgroundColor: const Color(0xffffffff),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image(
+              const Image(
                 image: NetworkImage(
                   "https://cdn3.iconfinder.com/data/icons/network-and-communications-6/130/291-128.png",
                 ),
@@ -300,133 +280,87 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
                 width: 90,
                 fit: BoxFit.cover,
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.fromLTRB(0, 8, 0, 30),
                 child: Text(
                   "Sign In",
-                  textAlign: TextAlign.start,
-                  overflow: TextOverflow.clip,
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
-                    fontStyle: FontStyle.normal,
                     fontSize: 20,
                     color: Color(0xff3a57e8),
                   ),
                 ),
               ),
-
-
-              Padding(
+              const Padding(
                 padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
                 child: Text(
                   "Continue with Email",
-                  textAlign: TextAlign.start,
-                  overflow: TextOverflow.clip,
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal,
                     fontSize: 14,
                     color: Color(0xff9e9e9e),
                   ),
                 ),
               ),
-
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Visibility(
-                    visible: !_isEmailSent,
-                    child: TextField(
-                      controller: emailController,
-                      obscureText: false,
-                      textAlign: TextAlign.start,
-                      maxLines: 1,
-                      decoration: InputDecoration(
-                        labelText: "Email",
-                        filled: true,
-                        fillColor: Color(0x00f2f2f3),
-                        isDense: false,
-                        contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                      ),
+                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                child: Visibility(
+                  visible: !_isEmailSent,
+                  child: TextField(
+                    controller: emailController,
+                    decoration: const InputDecoration(
+                      labelText: "Email",
                     ),
                   ),
                 ),
               ),
-
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: _isEmailSent
-                      ? Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 16),
-                        child: TextField(
-                          controller: codeController,
-                          obscureText: false,
-                          textAlign: TextAlign.start,
-                          maxLines: 1,
-                          decoration: InputDecoration(
-                            labelText: "Verification Code",
-                            filled: true,
-                            fillColor: Color(0x00f2f2f3),
-                            isDense: false,
-                            contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                          ),
+                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                child: _isEmailSent
+                    ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: List.generate(6, (index) {
+                    return SizedBox(
+                      width: 40,
+                      child: TextField(
+                        controller: codeControllers[index],
+                        maxLength: 1,
+                        textAlign: TextAlign.center,
+                        decoration: const InputDecoration(
+                          counterText: '',
                         ),
+                        keyboardType: TextInputType.number,
+                        onChanged: (value) {
+                          if (value.length == 1) {
+                            // Move focus to the next field
+                            if (index < 5) {
+                              FocusScope.of(context).nextFocus();
+                            } else {
+                              // Check if all fields have values
+                              String enteredCode = codeControllers.map((controller) => controller.text).join('');
+                              if (enteredCode.length == 6) {
+                                verify(); // Auto submit when 6 digits are entered
+                              }
+                            }
+                          }
+                        },
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 16),
-                        child: MaterialButton(
-                          onPressed: verify,
-                          color: Color(0xffffffff),
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.0),
-                            side: BorderSide(color: Color(0xff9e9e9e), width: 1),
-                          ),
-                          padding: EdgeInsets.all(16),
-                          child: Text(
-                            "Submit",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              fontStyle: FontStyle.normal,
-                            ),
-                          ),
-                          textColor: Color(0xff000000),
-                          height: 40,
-                          minWidth: 140,
-                        ),
-                      ),
-                    ],
-                  )
-                      : MaterialButton(
-                    onPressed: sendEmail,
-                    color: Color(0xffffffff),
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                      side: BorderSide(color: Color(0xff9e9e9e), width: 1),
-                    ),
-                    padding: EdgeInsets.all(16),
-                    child: Text(
-                      "Send Code",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        fontStyle: FontStyle.normal,
-                      ),
-                    ),
-                    textColor: Color(0xff000000),
-                    height: 40,
-                    minWidth: 140,
+                    );
+                  }),
+                )
+                    : Container(),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                child: OutlinedButton(
+                  onPressed: _isEmailSent ? verify : sendEmail,
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: Colors.black, side: const BorderSide(color: Colors.black), // Text color
+                    padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32), // Padding for the button
                   ),
+                  child: Text(_isEmailSent ? 'Submit' : 'Send Code'),
                 ),
               ),
-
 
             ],
           ),
@@ -434,6 +368,4 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
       ),
     );
   }
-
-
 }

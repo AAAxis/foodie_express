@@ -4,7 +4,39 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="611c882d-2b5a-4eb2-8b9a-9a7ae37bb8ed" name="Changes" comment="" />
+    <list default="true" id="611c882d-2b5a-4eb2-8b9a-9a7ae37bb8ed" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/foodie_express.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/foodie_express.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/debug/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/kotlin/com/wheels/order_app/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/kotlin/com/wheels/orderapp/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Podfile.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/AppDelegate.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/AppDelegate.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/authentication/auth_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/authentication/auth_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/authentication/email_login.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/authentication/email_login.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/mainScreens/account.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mainScreens/account.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/mainScreens/cart_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mainScreens/cart_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/mainScreens/chat_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mainScreens/chat_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/mainScreens/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mainScreens/home_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/mainScreens/map_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mainScreens/map_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/mainScreens/menu_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mainScreens/menu_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/mainScreens/notification.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mainScreens/notification.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/mainScreens/settings_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mainScreens/settings_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/mainScreens/success_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mainScreens/success_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/splashScreen/splash_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/splashScreen/splash_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/navigation_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/navigation_bar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/qr_code.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/qr_code.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/widget_test.dart" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,9 +48,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2nEOUg68hgbYTg5UKMqn5RpJmKg" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -26,6 +58,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Flutter.main.dart.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
@@ -33,11 +66,20 @@
     "cidr.known.project.marker": "true",
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "main",
+    "io.flutter.reload.alreadyRun": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/admin/Documents/GitHub/foodie_express",
+    "last_opened_file_path": "/Users/admin/Documents/GitHub/foodie_express/android/app/src/main/res",
     "show.migrate.to.gradle.popup": "false"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/android/app/src/main/res" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/android/app/src/main/res" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
@@ -54,5 +96,16 @@
       <updated>1728534785924</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/mainScreens/account.dart</url>
+          <line>1</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:order_app/mainScreens/cart_page.dart';
+import 'package:orderapp/mainScreens/cart_page.dart';
 
 class MenuPage extends StatefulWidget {
   final String storeId;
@@ -37,7 +37,6 @@ class _MenuPageState extends State<MenuPage> {
   }
 
   void navigateToCartPage() {
-    // Check if any item is selected
     if (_cartItems.values.any((quantity) => quantity > 0)) {
       Navigator.push(
         context,
@@ -46,7 +45,6 @@ class _MenuPageState extends State<MenuPage> {
         ),
       );
     } else {
-      // Display snack bar if no items are selected
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Please select items before proceeding to the cart.'),
@@ -96,7 +94,7 @@ class _MenuPageState extends State<MenuPage> {
                       child: Stack(
                         children: [
                           Container(
-                            height: 150,
+                            height: 170,
                             decoration: BoxDecoration(
                               borderRadius:
                               BorderRadius.vertical(top: Radius.circular(10.0)),
@@ -109,52 +107,50 @@ class _MenuPageState extends State<MenuPage> {
                             ),
                           ),
                           Positioned(
-                            bottom: 5,
-                            left: 5,
+                            top: 5,
+                            right: 5,
                             child: Container(
                               padding: EdgeInsets.all(5),
-                              color: Colors.white.withOpacity(0.7),
+                              color: Colors.black.withOpacity(0.7),
                               child: Text(
-                                product['name'],
+                                '${product['name']} x ${getQuantity(productId)}',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15,
-                                  color: Colors.black,
+                                  color: Colors.white,
                                 ),
                               ),
                             ),
                           ),
                           Positioned(
-                            bottom: 35,
-                            right: 5,
-                            child: Row(
+                            bottom: 5,
+                            right: 5, // Adjust left position if needed
+                            child: Column(
                               children: [
-                                OutlinedButton(
+                                ElevatedButton(
                                   onPressed: () {
                                     removeFromCart(productId);
                                   },
                                   child: Icon(Icons.remove, color: Colors.white),
-                                  style: ButtonStyle(
-                                    shape: MaterialStateProperty.all(CircleBorder()),
-                                    padding: MaterialStateProperty.all(EdgeInsets.all(8)),
-                                    foregroundColor: MaterialStateProperty.all(Colors.white),
+                                  style: ElevatedButton.styleFrom(
+                                    shape: CircleBorder(),
+                                    backgroundColor: Colors.red,
+                                    padding: EdgeInsets.all(8),
                                   ),
                                 ),
-                                Text(
-                                  '${getQuantity(productId)}',
-                                  style: TextStyle(fontSize: 18, color: Colors.white), // Set text color to white
-                                ),
-                                OutlinedButton(
+                                SizedBox(height: 2),
+                                ElevatedButton(
                                   onPressed: () {
                                     addToCart(productId);
                                   },
                                   child: Icon(Icons.add, color: Colors.white),
-                                  style: ButtonStyle(
-                                    shape: MaterialStateProperty.all(CircleBorder()),
-                                    padding: MaterialStateProperty.all(EdgeInsets.all(8)),
-                                    foregroundColor: MaterialStateProperty.all(Colors.white),
+                                  style: ElevatedButton.styleFrom(
+                                    shape: CircleBorder(),
+                                    backgroundColor: Colors.green,
+                                    padding: EdgeInsets.all(8),
                                   ),
-                                ),
+                                ),// Space between the buttons
+
                               ],
                             ),
                           ),
