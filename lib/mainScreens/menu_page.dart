@@ -61,107 +61,59 @@ class _MenuPageState extends State<MenuPage> {
       ),
       body: Padding(
         padding: EdgeInsets.all(20.0),
-        child: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance.collection('merchants').doc(widget.storeId).collection('products').snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-            } else if (snapshot.data!.docs.isEmpty) {
-              return Center(child: Text('No products available.'));
-            } else {
-              final products = snapshot.data!.docs;
-              return GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 10.0,
-                  crossAxisSpacing: 10.0,
-                ),
-                itemCount: products.length,
-                itemBuilder: (context, index) {
-                  final product = products[index].data() as Map<String, dynamic>;
-                  final productId = products[index].id;
-                  return GestureDetector(
-                    onTap: () {
-                      addToCart(productId);
-                    },
-                    child: Card(
-                      elevation: 2,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Stack(
-                        children: [
-                          Container(
-                            height: 170,
-                            decoration: BoxDecoration(
-                              borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(10.0)),
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                  '${product['image_url']}',
-                                ),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            top: 5,
-                            right: 5,
-                            child: Container(
-                              padding: EdgeInsets.all(5),
-                              color: Colors.black.withOpacity(0.7),
-                              child: Text(
-                                '${product['name']} x ${getQuantity(productId)}',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 5,
-                            right: 5, // Adjust left position if needed
-                            child: Column(
-                              children: [
-                                ElevatedButton(
-                                  onPressed: () {
-                                    removeFromCart(productId);
-                                  },
-                                  child: Icon(Icons.remove, color: Colors.white),
-                                  style: ElevatedButton.styleFrom(
-                                    shape: CircleBorder(),
-                                    backgroundColor: Colors.red,
-                                    padding: EdgeInsets.all(8),
-                                  ),
-                                ),
-                                SizedBox(height: 2),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    addToCart(productId);
-                                  },
-                                  child: Icon(Icons.add, color: Colors.white),
-                                  style: ElevatedButton.styleFrom(
-                                    shape: CircleBorder(),
-                                    backgroundColor: Colors.green,
-                                    padding: EdgeInsets.all(8),
-                                  ),
-                                ),// Space between the buttons
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            // Determine if the screen width is large enough to show 2 columns
+            bool isTablet = constraints.maxWidth > 600; // Adjust this width based on your preference
 
-                              ],
-                            ),
-                          ),
+            return StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('merchants')
+                  .doc(widget.storeId)
+                  .collection('products')
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                } else if (snapshot.data!.docs.isEmpty) {
+                  return Center(child: Text('No products available.'));
+                } else {
+                  final products = snapshot.data!.docs;
 
-                        ],
+                  if (isTablet) {
+                    // GridView for tablets (2 columns)
+                    return GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2, // Two columns on tablets
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                        childAspectRatio: 3, // Adjust to fit the design
                       ),
-                    ),
-                  );
-                },
-              );
-            }
+                      itemCount: products.length,
+                      itemBuilder: (context, index) {
+                        final product = products[index].data() as Map<String, dynamic>;
+                        final productId = products[index].id;
+
+                        return productCard(product, productId);
+                      },
+                    );
+                  } else {
+                    // ListView for phones (1 column)
+                    return ListView.builder(
+                      itemCount: products.length,
+                      itemBuilder: (context, index) {
+                        final product = products[index].data() as Map<String, dynamic>;
+                        final productId = products[index].id;
+
+                        return productCard(product, productId);
+                      },
+                    );
+                  }
+                }
+              },
+            );
           },
         ),
       ),
@@ -170,6 +122,97 @@ class _MenuPageState extends State<MenuPage> {
           navigateToCartPage();
         },
         child: Icon(Icons.shopping_cart),
+      ),
+    );
+  }
+
+  // Helper method to create the product card
+  Widget productCard(Map<String, dynamic> product, String productId) {
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Product Image on the left
+            Container(
+              width: 150,
+              height: 150,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                image: DecorationImage(
+                  image: NetworkImage(product['image_url']),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            SizedBox(width: 10),
+            // Product Info and buttons on the right
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    product['name'],
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    '\$${product['price'].toString()}',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey[600],
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          removeFromCart(productId);
+                        },
+                        child: Icon(Icons.remove, color: Colors.white),
+                        style: ElevatedButton.styleFrom(
+                          shape: CircleBorder(),
+                          backgroundColor: Colors.red,
+                          padding: EdgeInsets.all(8),
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        getQuantity(productId).toString(),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      ElevatedButton(
+                        onPressed: () {
+                          addToCart(productId);
+                        },
+                        child: Icon(Icons.add, color: Colors.white),
+                        style: ElevatedButton.styleFrom(
+                          shape: CircleBorder(),
+                          backgroundColor: Colors.green,
+                          padding: EdgeInsets.all(8),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

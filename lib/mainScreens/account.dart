@@ -77,7 +77,7 @@ class _AccountPageState extends State<AccountPage> {
           ),
 
           ListTile(
-            leading: const Icon(Icons.history, color: Colors.black),
+            leading: const Icon(Icons.qr_code, color: Colors.black),
             title: const Text(
               "QR Code",
               style: TextStyle(color: Colors.black),
